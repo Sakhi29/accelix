@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat, Kdam_Thmor_Pro } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "./components/Navbar";
 import Loader from "./components/Loader";
