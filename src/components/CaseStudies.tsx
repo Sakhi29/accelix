@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 
 const caseStudies = [
@@ -36,9 +36,11 @@ const caseStudies = [
 
 const CaseStudies = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const nextIndex = (activeIndex + 1) % caseStudies.length;
 
   const nextCase = () => {
+    setDirection(1);
     setActiveIndex(nextIndex);
   };
 
@@ -47,43 +49,95 @@ const CaseStudies = () => {
       <div className="w-full mx-auto px-4">
         <div className="relative h-[80vh] flex items-center">
           <div className="w-full flex gap-4 relative">
-            {/* Left Case Study */}
-            <div className="w-3/5 opacity-100 transition-opacity duration-500">
-              <div className="relative h-[60vh]">
-                <img
-                  src={caseStudies[activeIndex].image}
-                  alt={caseStudies[activeIndex].title}
-                  className="w-full h-full object-cover bg-gray-200"
-                />
-                <div className="mt-4 flex justify-between items-center text-sm">
-                  {/* <span className="text-gray-500">{caseStudies[activeIndex].year}</span> */}
-                  <span className="uppercase font-medium">
-                    {caseStudies[activeIndex].title}
-                  </span>
-                  <br />
-                  <span>{caseStudies[nextIndex].description}</span>
+            <AnimatePresence mode="popLayout" initial={false}>
+              {/* Left Case Study */}
+              <motion.div
+                key={activeIndex}
+                className="w-3/5"
+                initial={{ 
+                  x: direction > 0 ? 1000 : -1000,
+                  scale: 0.8,
+                  opacity: 0,
+                  zIndex: 1 
+                }}
+                animate={{ 
+                  x: 0,
+                  scale: 1,
+                  opacity: 1,
+                  zIndex: 2,
+                  transition: {
+                    duration: 0.7,
+                    ease: "easeOut"
+                  }
+                }}
+                exit={{ 
+                  x: direction > 0 ? -1000 : 1000,
+                  scale: 0.8,
+                  opacity: 0,
+                  zIndex: 1,
+                  transition: {
+                    duration: 0.7,
+                    ease: "easeIn"
+                  }
+                }}
+              >
+                <div className="relative h-[60vh]">
+                  <img
+                    src={caseStudies[activeIndex].image}
+                    alt={caseStudies[activeIndex].title}
+                    className="w-full h-full object-cover bg-gray-200"
+                  />
+                  <div className="mt-4 flex justify-between items-center text-sm">
+                    <span className="uppercase font-medium">
+                      {caseStudies[activeIndex].title}
+                    </span>
+                    <br />
+                    <span>{caseStudies[activeIndex].description}</span>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
 
-            {/* Right Case Study (Next) */}
-            <div className="w-2/5 opacity-100 transition-opacity duration-500">
-              <div className="relative h-[40vh]">
-                <img
-                  src={caseStudies[nextIndex].image}
-                  alt={caseStudies[nextIndex].title}
-                  className="w-full h-full object-cover bg-gray-200"
-                />
-                <div className="mt-4 flex justify-between items-center text-sm">
-                  {/* <span className="text-gray-500">{caseStudies[nextIndex].year}</span> */}
-                  <span className="uppercase font-medium">
-                    {caseStudies[nextIndex].title}
-                  </span>
-                  <br />
-                  <span>{caseStudies[nextIndex].description}</span>
+              {/* Right Case Study (Next) */}
+              <motion.div
+                key={`next-${nextIndex}`}
+                className="w-2/5"
+                initial={{ 
+                  x: 100,
+                  scale: 0.7,
+                  opacity: 0.5,
+                  zIndex: 0 
+                }}
+                animate={{ 
+                  x: 0,
+                  scale: 0.8,
+                  opacity: 0.7,
+                  zIndex: 1,
+                  transition: {
+                    duration: 0.5
+                  }
+                }}
+                whileHover={{ 
+                  scale: 0.85,
+                  opacity: 0.9,
+                  transition: { duration: 0.2 }
+                }}
+              >
+                <div className="relative h-[40vh]">
+                  <img
+                    src={caseStudies[nextIndex].image}
+                    alt={caseStudies[nextIndex].title}
+                    className="w-full h-full object-cover bg-gray-200"
+                  />
+                  <div className="mt-4 flex justify-between items-center text-sm">
+                    <span className="uppercase font-medium">
+                      {caseStudies[nextIndex].title}
+                    </span>
+                    <br />
+                    <span>{caseStudies[nextIndex].description}</span>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </AnimatePresence>
 
             {/* Centered Navigation Button */}
             <button
@@ -99,6 +153,7 @@ const CaseStudies = () => {
                 {activeIndex + 1}/{caseStudies.length}
               </p>
             </div>
+
             <div className="absolute -bottom-48 w-full h-[250px] overflow-visible">
               <motion.h2
                 initial={{ opacity: 0, y: 20 }}
