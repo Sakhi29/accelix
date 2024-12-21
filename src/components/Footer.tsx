@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { Kdam_Thmor_Pro } from 'next/font/google';
+import React from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { Kdam_Thmor_Pro } from "next/font/google";
 
 const kdamThmorPro = Kdam_Thmor_Pro({
-  subsets: ['latin'],
-  weight: '400',
-  display: 'swap',
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
 });
 
 const Footer = () => {
@@ -20,7 +20,7 @@ const Footer = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full text-center text-[150px] md:text-[220px] font-bold text-[#4338ca] leading-[0.8] mt-[120px]"
+          className="w-full text-center text-[50px] md:text-[100px] lg:text-[220px] font-bold text-[#4338ca] leading-[0.9] mt-[120px]"
         >
           CONTACT US
         </motion.h2>
@@ -56,18 +56,47 @@ const Footer = () => {
 
         {/* Footer Bottom */}
         <div className="flex justify-between items-center border-t border-gray-200 pt-8">
-          <div className={`text-2xl font-bold tracking-tighter ${kdamThmorPro.className}`}>
+          <div
+            className={`text-2xl font-bold tracking-tighter ${kdamThmorPro.className}`}
+          >
             ACCELIX
           </div>
           <div className="flex gap-4">
-            <a href="#" className="bg-black rounded-full p-2 hover:bg-[#4338ca] transition-colors">
-              <Image src="/twitter.svg" alt="Twitter" width={20} height={20} className="invert" />
+            <a
+              href="#"
+              className="bg-black rounded-full p-2 hover:bg-[#4338ca] transition-colors"
+            >
+              <Image
+                src="/twitter.svg"
+                alt="Twitter"
+                width={20}
+                height={20}
+                className="invert"
+              />
             </a>
-            <a href="#" className="bg-black rounded-full p-2 hover:bg-[#4338ca] transition-colors">
-              <Image src="/linkedin.svg" alt="LinkedIn" width={20} height={20} className="invert" />
+            <a
+              href="#"
+              className="bg-black rounded-full p-2 hover:bg-[#4338ca] transition-colors"
+            >
+              <Image
+                src="/linkedin.svg"
+                alt="LinkedIn"
+                width={20}
+                height={20}
+                className="invert"
+              />
             </a>
-            <a href="#" className="bg-black rounded-full p-2 hover:bg-[#4338ca] transition-colors">
-              <Image src="/email.svg" alt="Email" width={20} height={20} className="invert" />
+            <a
+              href="#"
+              className="bg-black rounded-full p-2 hover:bg-[#4338ca] transition-colors"
+            >
+              <Image
+                src="/email.svg"
+                alt="Email"
+                width={20}
+                height={20}
+                className="invert"
+              />
             </a>
           </div>
         </div>

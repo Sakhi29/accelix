@@ -34,24 +34,26 @@ const caseStudies = [
 const CaseStudies = () => {
   return (
     <>
-      <section className="w-full md:px-8 bg-[#1E1E1E]">
+      {/* Heading Section */}
+      <section className="w-full px-4 sm:px-6 lg:px-8 bg-[#1E1E1E]">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-5xl md:text-5xl mb-16 text-white font-['Montserrat']"
+          className="text-3xl sm:text-4xl lg:text-5xl mb-8 sm:mb-12 lg:mb-16 text-white font-['Montserrat'] text-center md:text-left"
         >
           CASE STUDIES
         </motion.h2>
       </section>
 
-      <motion.section 
+      {/* Case Studies Grid */}
+      <motion.section
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="w-full py-20 px-4 md:px-8 bg-[#4338ca] rounded-3xl"
+        className="w-full py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-[#4338ca] rounded-3xl"
       >
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 sm:gap-6 max-w-7xl mx-auto">
           {caseStudies.map((study, index) => (
             <motion.div
               key={study.id}
@@ -59,7 +61,7 @@ const CaseStudies = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.2 }}
               whileHover={{ scale: 1.02 }}
-              className={`relative h-[300px] rounded-3xl overflow-hidden cursor-pointer ${study.className}`}
+              className={`relative h-[250px] sm:h-[300px] rounded-3xl overflow-hidden cursor-pointer ${study.className}`}
             >
               <Image
                 src={study.image}
@@ -68,7 +70,7 @@ const CaseStudies = () => {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-black/60 hover:bg-black/30 transition-all duration-300">
-                <h3 className="absolute bottom-8 left-8 text-3xl font-semibold text-white">
+                <h3 className="absolute bottom-4 sm:bottom-8 left-4 sm:left-8 text-lg sm:text-2xl lg:text-3xl font-semibold text-white">
                   {study.title}
                 </h3>
               </div>

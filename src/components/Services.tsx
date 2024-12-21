@@ -1,67 +1,79 @@
-'use client';
+"use client";
 
-import { Montserrat} from 'next/font/google';
-import { motion } from 'framer-motion';
+import { Montserrat } from "next/font/google";
+import { motion } from "framer-motion";
 
 const montserrat = Montserrat({
-  subsets: ['latin'],
-  weight: '400',
-  display: 'swap',
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
 });
 
 const services = [
   {
-    title: 'Website Development',
-    description: 'Creating responsive, modern websites that drive results',
-    link: '/services/web'
+    title: "Website Development",
+    description: "Creating responsive, modern websites that drive results",
+    link: "/services/web",
   },
   {
-    title: 'Mobile Development',
-    description: 'Native and cross-platform mobile solutions',
-    link: '/services/mobile'
+    title: "Mobile Development",
+    description: "Native and cross-platform mobile solutions",
+    link: "/services/mobile",
   },
   {
-    title: 'Cloud Services',
-    description: 'Scalable cloud solutions for your business',
-    link: '/services/cloud'
+    title: "Cloud Services",
+    description: "Scalable cloud solutions for your business",
+    link: "/services/cloud",
   },
   {
-    title: 'UI/UX Design',
-    description: 'User-centered design that converts',
-    link: '/services/design'
-  }
+    title: "UI/UX Design",
+    description: "User-centered design that converts",
+    link: "/services/design",
+  },
+  {
+    title: "SEO Optimization",
+    description:
+      "Boost your online visibility and drive organic traffic with tailored SEO strategies.",
+    link: "/services/seo",
+  },
 ];
 
 const Services = () => {
   return (
-    <section className="py-20 text-white relative overflow-hidden">
-      {/* Background Effects */}
-      {/* <div className="absolute -top-48 -left-64 w-[500px] h-[500px] bg-blue-500 rounded-full opacity-20 blur-3xl -z-50"></div>
-      <div className="absolute -bottom-44 -right-44 w-[600px] h-[600px] bg-white rounded-full opacity-10 blur-[200px] -z-10"></div> */}
-
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center mb-20">
-          <h2 className={`${montserrat.className} text-5xl font-bold `}>OUR SERVICES</h2>
-          <p className="text-gray-400 text-right">
+    <section className="py-16 px-4 sm:px-6 lg:px-8 text-white relative overflow-hidden">
+      <div className="container mx-auto">
+        {/* Header Section */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-12 md:mb-20 space-y-6 md:space-y-0">
+          <h2
+            className={`${montserrat.className} text-3xl sm:text-4xl lg:text-5xl font-bold text-center md:text-left`}
+          >
+            OUR SERVICES
+          </h2>
+          <p className="text-gray-400 text-sm sm:text-base md:text-lg text-center md:text-right">
             "We are what we repeatedly do."
-            <span className="block text-[#4318FF]">-Aristotle</span>
+            <span className="block text-[#4318FF] mt-1">- Aristotle</span>
           </p>
         </div>
 
-        <div className="space-y-8">
+        {/* Services Section */}
+        <div className="space-y-10">
           {services.map((service, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group border-b border-gray-800 pb-8 relative flex justify-between items-center"
+              className="group flex items-center justify-between border-b border-gray-800 pb-8 space-x-4"
             >
-              <div>
-                <h3 className={`${montserrat.className} text-4xl text-gray-200 group-hover:text-white transition-colors duration-300`}>
+              <div className="flex-1">
+                <h3
+                  className={`${montserrat.className} text-2xl sm:text-3xl lg:text-4xl text-gray-200 group-hover:text-white transition-colors duration-300`}
+                >
                   {service.title}
                 </h3>
-                <p className="text-gray-400 mt-2">{service.description}</p>
+                <p className="text-gray-400 text-sm sm:text-base lg:text-lg mt-2">
+                  {service.description}
+                </p>
               </div>
               <motion.div
                 whileHover={{ scale: 1.1 }}
