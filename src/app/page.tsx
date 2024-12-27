@@ -1,5 +1,5 @@
 import Hero from "../components/Hero";
-import Features from "../components/Features";
+// import Features from "../components/Features";
 import Services from "../components/Services";
 import CaseStudies from "../components/CaseStudies";
 import Testimonials from "../components/Testimonials";
@@ -10,7 +10,7 @@ export default function Home() {
     <div className="">
       <main className="">
         <Hero />
-        <Features />
+        {/* <Features /> */}
         <Services />
         <CaseStudies />
         <Testimonials />

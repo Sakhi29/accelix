@@ -1,10 +1,19 @@
 "use client";
-
-import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 
-const testimonials = [
+interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  image: string;
+  content: string;
+  rating: number;
+}
+
+const testimonials: Testimonial[] = [
   {
     id: 1,
     name: "Sarah Johnson",
@@ -32,9 +41,40 @@ const testimonials = [
       "Website design did exactly what you said it does. Just what I was looking for. Nice work on your website design.",
     rating: 5,
   },
+  {
+    id: 4,
+    name: "Emily Williams",
+    role: "Product Manager",
+    image: "/person3.avif",
+    content:
+      "Website design did exactly what you said it does. Just what I was looking for. Nice work on your website design.",
+    rating: 5,
+  },
+  {
+    id: 5,
+    name: "Emily Williams",
+    role: "Product Manager",
+    image: "/person3.avif",
+    content:
+      "Website design did exactly what you said it does. Just what I was looking for. Nice work on your website design.",
+    rating: 5,
+  },
+  {
+    id: 6,
+    name: "Emily Williams",
+    role: "Product Manager",
+    image: "/person3.avif",
+    content:
+      "Website design did exactly what you said it does. Just what I was looking for. Nice work on your website design.",
+    rating: 5,
+  },
 ];
 
-const StarRating = ({ rating }: { rating: number }) => {
+interface StarRatingProps {
+  rating: number;
+}
+
+const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
   return (
     <div className="flex gap-1">
       {[...Array(rating)].map((_, i) => (
@@ -47,6 +87,10 @@ const StarRating = ({ rating }: { rating: number }) => {
 };
 
 const Testimonials = () => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+    Autoplay({ delay: 4000, stopOnInteraction: false }),
+  ]);
+
   return (
     <section className="w-full bg-[#1E1E1E] text-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
       <div className="w-full mx-auto max-w-7xl">
@@ -71,46 +115,47 @@ const Testimonials = () => {
           </motion.p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12 sm:mb-16 md:mb-20">
-          {testimonials.map((testimonial, index) => (
-            <motion.div
-              key={testimonial.id}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              className="bg-[#F6F6F6] rounded-3xl p-6 sm:p-8 relative"
-            >
-              <div className="flex items-center gap-4 mb-4 sm:mb-6">
-                <div className="relative w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    fill
-                    className="object-cover"
-                    sizes="64px"
-                  />
+        {/* Testimonials Carousel */}
+        <div className="overflow-hidden mb-12 sm:mb-16 md:mb-20" ref={emblaRef}>
+          <div className="flex">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={testimonial.id}
+                className="flex-[0_0_100%] min-w-0 pl-4 md:flex-[0_0_33.33%]"
+              >
+                <div className="bg-[#F6F6F6] rounded-3xl p-6 sm:p-8 relative h-full mr-4">
+                  <div className="flex items-center gap-4 mb-4 sm:mb-6">
+                    <div className="relative w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden">
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                        sizes="64px"
+                      />
+                    </div>
+                    <StarRating rating={testimonial.rating} />
+                  </div>
+                  <p className="text-sm sm:text-base mb-4 sm:mb-6 text-gray-800">
+                    {testimonial.content}
+                  </p>
+                  <div>
+                    <h4 className="font-semibold text-gray-900 text-base sm:text-lg">
+                      {testimonial.name}
+                    </h4>
+                    <p className="text-gray-600 text-xs sm:text-sm">
+                      {testimonial.role}
+                    </p>
+                    <div className="absolute bottom-4 sm:bottom-8 right-4 sm:right-8">
+                      <span className="text-[#4338ca] bg-[#4338ca]/10 px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
+                        Testimonial
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <StarRating rating={testimonial.rating} />
               </div>
-              <p className="text-sm sm:text-base mb-4 sm:mb-6 text-gray-800">
-                {testimonial.content}
-              </p>
-              <div>
-                <h4 className="font-semibold text-gray-900 text-base sm:text-lg">
-                  {testimonial.name}
-                </h4>
-                <p className="text-gray-600 text-xs sm:text-sm">
-                  {testimonial.role}
-                </p>
-                <div className="absolute bottom-4 sm:bottom-8 right-4 sm:right-8">
-                  <span className="text-[#4338ca] bg-[#4338ca]/10 px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
-                    Testimonial
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
 
         {/* CTA Section */}

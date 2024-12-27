@@ -1,10 +1,20 @@
 "use client";
-
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useCallback, useEffect, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
+import { flushSync } from "react-dom";
+import Image from "next/image";
 
-const caseStudies = [
+interface CaseStudy {
+  id: number;
+  title: string;
+  image: string;
+  description: string;
+  className: string;
+}
+
+const caseStudies: CaseStudy[] = [
   {
     id: 1,
     title: "E-Commerce Platform",
@@ -35,132 +45,123 @@ const caseStudies = [
   },
 ];
 
-const CaseStudies = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
-  const nextIndex = (activeIndex + 1) % caseStudies.length;
+const TWEEN_FACTOR = 1.2;
 
-  const nextCase = () => {
-    setDirection(1);
-    setActiveIndex(nextIndex);
-  };
+const CaseStudies = () => {
+  const [tweenValues, setTweenValues] = useState<number[]>([]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    skipSnaps: false,
+    duration: 30, // Faster transition
+    startIndex: 1, // Start from the second slide to ensure smooth looping
+    align: "center",
+    containScroll: "trimSnaps",
+    dragFree: true,
+  });
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
+
+  const onScroll = useCallback(() => {
+    if (!emblaApi) return;
+
+    const engine = emblaApi.internalEngine();
+    const scrollProgress = emblaApi.scrollProgress();
+
+    const styles = emblaApi.scrollSnapList().map((scrollSnap, index) => {
+      let diffToTarget = scrollSnap - scrollProgress;
+
+      if (engine.options.loop) {
+        engine.slideLooper.loopPoints.forEach((loopItem) => {
+          const target = loopItem.target();
+          if (index === loopItem.index && target !== 0) {
+            const sign = Math.sign(target);
+            if (sign === -1) diffToTarget = scrollSnap - (1 + scrollProgress);
+            if (sign === 1) diffToTarget = scrollSnap + (1 - scrollProgress);
+          }
+        });
+      }
+
+      const scale = 1 - Math.abs(diffToTarget * TWEEN_FACTOR);
+      return scale;
+    });
+    setTweenValues(styles);
+  }, [emblaApi, setTweenValues]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+
+    onScroll();
+    emblaApi.on("scroll", () => {
+      flushSync(() => onScroll());
+    });
+    emblaApi.on("reInit", onScroll);
+  }, [emblaApi, onScroll]);
 
   return (
     <div className="w-full min-h-screen bg-white">
       <div className="w-full mx-auto px-4">
         <div className="relative h-[80vh] flex items-center">
-          <div className="w-full flex gap-4 relative">
-            <AnimatePresence mode="popLayout" initial={false}>
-              {/* Current Case Study */}
-              <motion.div
-                key={activeIndex}
-                className="w-full sm:w-3/5"
-                initial={{ 
-                  x: direction > 0 ? 1000 : -1000,
-                  scale: 0.8,
-                  opacity: 0,
-                  zIndex: 1 
-                }}
-                animate={{ 
-                  x: 0,
-                  scale: 1,
-                  opacity: 1,
-                  zIndex: 2,
-                  transition: {
-                    duration: 0.7,
-                    ease: "easeOut"
-                  }
-                }}
-                exit={{ 
-                  x: direction > 0 ? -1000 : 1000,
-                  scale: 0.8,
-                  opacity: 0,
-                  zIndex: 1,
-                  transition: {
-                    duration: 0.7,
-                    ease: "easeIn"
-                  }
-                }}
-              >
-                <div className="relative h-[60vh]">
-                  <img
-                    src={caseStudies[activeIndex].image}
-                    alt={caseStudies[activeIndex].title}
-                    className="w-full h-full object-cover bg-gray-200 rounded-lg shadow-lg"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 rounded-b-lg">
-                    <h3 className="text-white uppercase font-medium text-xl sm:text-2xl mb-2">
-                      {caseStudies[activeIndex].title}
-                    </h3>
-                    <p className="text-white/90 text-sm sm:text-base">
-                      {caseStudies[activeIndex].description}
-                    </p>
+          <div className="overflow-hidden w-full" ref={emblaRef}>
+            <div className="flex -ml-4">
+              {" "}
+              {/* Negative margin to offset first slide gap */}
+              {[...caseStudies, caseStudies[0]].map(
+                (
+                  study,
+                  index // Added first slide at end for smoother loop
+                ) => (
+                  <div
+                    key={`${study.id}-${index}`}
+                    className="relative flex-[0_0_80%] sm:flex-[0_0_50%] pl-4" // Reduced slide width and added padding-left
+                    style={{
+                      ...(tweenValues.length && {
+                        transform: `scale(${tweenValues[index]})`,
+                        opacity: tweenValues[index],
+                        transition: "transform 0.3s ease-out",
+                      }),
+                    }}
+                  >
+                    <div className="relative h-[60vh]">
+                      <Image
+                        src={study.image}
+                        alt={study.title}
+                        className="w-full h-full object-cover bg-gray-200 rounded-lg shadow-lg"
+                      />
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 rounded-b-lg">
+                        <h3 className="text-white uppercase font-medium text-xl sm:text-2xl mb-2">
+                          {study.title}
+                        </h3>
+                        <p className="text-white/90 text-sm sm:text-base">
+                          {study.description}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-
-              {/* Next Case Study (Hidden on Mobile) */}
-              <motion.div
-                key={`next-${nextIndex}`}
-                className="hidden sm:block w-2/5"
-                initial={{ 
-                  x: 100,
-                  scale: 0.7,
-                  opacity: 0.5,
-                  zIndex: 0 
-                }}
-                animate={{ 
-                  x: 0,
-                  scale: 0.8,
-                  opacity: 0.7,
-                  zIndex: 1,
-                  transition: {
-                    duration: 0.5
-                  }
-                }}
-                whileHover={{ 
-                  scale: 0.85,
-                  opacity: 0.9,
-                  transition: { duration: 0.2 }
-                }}
-              >
-                <div className="relative h-[40vh]">
-                  <img
-                    src={caseStudies[nextIndex].image}
-                    alt={caseStudies[nextIndex].title}
-                    className="w-full h-full object-cover bg-gray-200 rounded-lg shadow-lg"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 rounded-b-lg">
-                    <h3 className="text-white uppercase font-medium text-lg mb-1">
-                      {caseStudies[nextIndex].title}
-                    </h3>
-                    <p className="text-white/90 text-sm">
-                      {caseStudies[nextIndex].description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Navigation Button */}
-            <button
-              onClick={nextCase}
-              className="w-12 h-12 sm:w-20 sm:h-20 rounded-full absolute right-4 sm:left-[59%] top-1/2 -translate-y-1/2 sm:-translate-x-1/2 bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
-            >
-              <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" color="black" />
-            </button>
-
-            {/* Background Text (Hidden on Mobile) */}
-            <div className="hidden sm:block absolute -bottom-48 w-full h-[250px] overflow-visible">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 0.1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="w-full text-center text-[100px] lg:text-[220px] font-bold text-black opacity-50 leading-[0.9] mt-[120px]"
-              >
-                CASESTUDY
-              </motion.h2>
+                )
+              )}
             </div>
+          </div>
+
+          {/* Navigation Button */}
+          <button
+            onClick={scrollNext}
+            className="w-12 h-12 sm:w-16 sm:h-16 rounded-full absolute right-8 top-1/2 -translate-y-1/2 bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 transition-colors z-10"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" color="black" />
+          </button>
+
+          {/* Background Text (Hidden on Mobile) */}
+          <div className="hidden sm:block absolute -bottom-48 w-full h-[250px] md:overflow-hidden">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 0.1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="w-full text-center text-[100px] md:text-[100px] lg:text-[220px] font-bold text-black opacity-10 leading-[0.9] mt-[50px]"
+            >
+              CASE STUDY
+            </motion.h2>
           </div>
         </div>
       </div>
