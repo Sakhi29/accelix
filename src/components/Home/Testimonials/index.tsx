@@ -3,15 +3,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-
-interface Testimonial {
-  id: number;
-  name: string;
-  role: string;
-  image: string;
-  content: string;
-  rating: number;
-}
+import { Testimonial } from "@/types/Testimonials";
 
 const testimonials: Testimonial[] = [
   {
@@ -87,7 +79,7 @@ const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
 };
 
 const Testimonials = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+  const [emblaRef] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 4000, stopOnInteraction: false }),
   ]);
 
@@ -118,7 +110,7 @@ const Testimonials = () => {
         {/* Testimonials Carousel */}
         <div className="overflow-hidden mb-12 sm:mb-16 md:mb-20" ref={emblaRef}>
           <div className="flex">
-            {testimonials.map((testimonial, index) => (
+            {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
                 className="flex-[0_0_100%] min-w-0 pl-4 md:flex-[0_0_33.33%]"
