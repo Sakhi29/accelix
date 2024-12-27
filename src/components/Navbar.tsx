@@ -57,27 +57,41 @@ const Navbar = () => {
           className="md:hidden text-white"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          <svg
-            className="w-6 h-6"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            {isMenuOpen ? (
-              <path d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
+          {isMenuOpen ? (
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          )}
         </button>
 
-        {/* Mobile Menu */}
+        {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-black/95 md:hidden">
-            <div className="flex flex-col items-center space-y-4 py-4">
+          <div className="absolute top-full left-0 right-0 bg-[#1E1E1E] border-t border-gray-800 md:hidden">
+            <div className="flex flex-col space-y-4 px-6 py-4">
               <Link
                 href="/our-work"
                 className="text-white hover:text-gray-300 transition-colors"
@@ -101,7 +115,7 @@ const Navbar = () => {
               </Link>
               <Link
                 href="/contact"
-                className="bg-[#4318FF] text-white px-6 py-2 rounded-full hover:bg-[#3614CC] transition-colors"
+                className="bg-[#4318FF] text-white px-6 py-2 rounded-full hover:bg-[#3614CC] transition-colors text-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Contact Us

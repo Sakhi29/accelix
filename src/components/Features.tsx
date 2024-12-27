@@ -39,17 +39,17 @@ const features = [
 
 const Features = () => {
   return (
-    <section className="w-full bg-[#1E1E1E] text-white py-16 px-4 md:px-8 relative overflow-hidden">
+    <section className="w-full bg-[#1E1E1E] text-white py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-12 md:mb-20">
+        <div className="flex flex-col lg:flex-row justify-between items-center mb-10 sm:mb-12 lg:mb-20">
           <h2
-            className={`${montserrat.className} text-3xl sm:text-4xl md:text-5xl font-bold mb-6 md:mb-0`}
+            className={`${montserrat.className} text-2xl sm:text-3xl lg:text-5xl font-bold mb-6 lg:mb-0 text-center lg:text-left`}
           >
             KEY FEATURES
           </h2>
 
           {/* Quote Section */}
-          <div className="text-center md:text-right">
+          <div className="text-center lg:text-right">
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -69,7 +69,7 @@ const Features = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={feature.id}
@@ -77,23 +77,23 @@ const Features = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               whileHover={{ scale: 1.02 }}
-              className="bg-white/5 backdrop-blur-sm rounded-3xl p-6 sm:p-8 border border-gray-800 hover:border-[#4338ca] transition-all"
+              className="bg-white/5 backdrop-blur-sm rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 border border-gray-800 hover:border-[#4338ca] transition-all"
             >
-              <span className="text-3xl sm:text-4xl mb-4 block">
+              <span className="text-2xl sm:text-3xl lg:text-4xl mb-3 sm:mb-4 block">
                 {feature.icon}
               </span>
               <h3
-                className={`${montserrat.className} text-xl sm:text-2xl font-bold mb-4`}
+                className={`${montserrat.className} text-lg sm:text-xl lg:text-2xl font-bold mb-3 sm:mb-4`}
               >
                 {feature.title}
               </h3>
               <p className="text-gray-400 text-sm sm:text-base">
                 {feature.description}
               </p>
-              <div className="mt-6">
+              <div className="mt-4 sm:mt-6">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
-                  className="flex items-center gap-2 bg-white px-4 sm:px-6 py-2 rounded-full text-[#4338ca] hover:bg-[#4338ca]/10 transition-all group"
+                  className="flex items-center gap-2 bg-white px-4 sm:px-6 py-2 rounded-full text-[#4338ca] text-sm sm:text-base hover:bg-[#4338ca]/10 transition-all group"
                 >
                   <span>Learn More</span>
                   <svg
