@@ -76,7 +76,7 @@ const CaseStudies = () => {
                 key={`${study.id}-${index}`}
                 className="carousel-slide relative"
               >
-                <div className="relative aspect-square shadow-lg overflow-hidden md:aspect-[400/400] md:w-[400px]">
+                <div className="relative aspect-square shadow-lg overflow-hidden w-full max-h-[500px] xxl:max-h-[600px] ">
                   <Image
                     src={study.image}
                     alt={study.title}
