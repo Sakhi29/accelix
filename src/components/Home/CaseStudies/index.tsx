@@ -58,13 +58,13 @@ const CaseStudies = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-white">
+    <div className="w-full bg-white">
       <div className="w-full mx-auto px-4">
-        <div className="relative h-[80vh] flex items-center">
+        <div className="relative pt-8 pb-[50px] md:pt-8 md:pb-[100px] lg:pb-[150px] flex items-center">
           <Carousel
             ref={carouselRef}
             containerClassName="gap-3"
-            slideClassName="relative flex-[0_0_80%] sm:flex-[0_0_50%] pl-4"
+            slideClassName="flex-none w-full md:w-1/2 px-2"
             align="center"
             loop
             dragFree
@@ -104,12 +104,12 @@ const CaseStudies = () => {
           </button>
 
           {/* Background Text (Hidden on Mobile) */}
-          <div className="hidden sm:block absolute -bottom-48 w-full h-[250px] md:overflow-hidden">
+          <div className="sm:block absolute -bottom-40 md:-bottom-32 lg:-bottom-24 xl:-bottom-16 w-full h-[250px] md:overflow-hidden">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 0.1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="w-full text-center text-[50px] sm:text-[70px] md:text-[100px] lg:text-[150px] xl:text-[220px] font-bold text-black opacity-10 leading-[0.9] mt-[50px]"
+              className="w-full text-center text-[65px] md:text-[100px] lg:text-[150px] xl:text-[210px] font-bold text-black opacity-10 leading-[0.9] mt-[50px]"
             >
               CASE STUDY
             </motion.h2>
