@@ -20,11 +20,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${montserrat.className}`}>
-        <Navbar />
+    <html lang='en'>
+      <body className={montserrat.className}>
+        <div className='relative min-h-screen'>
+          <Navbar />
+          <main>{children}</main>
+        </div>
         <Loader />
-        <main className={montserrat.className}>{children}</main>
       </body>
     </html>
   );
