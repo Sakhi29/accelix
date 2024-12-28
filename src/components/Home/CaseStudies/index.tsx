@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -40,43 +40,61 @@ const caseStudies: CaseStudy[] = [
 
 const CaseStudies = () => {
   const carouselRef = React.useRef<CarouselRef>(null);
+
+  const handleSlideChange = (index: number) => {
+    // Custom scale effect logic
+    const slides = document.querySelectorAll(".carousel-slide");
+    slides.forEach((slide, i) => {
+      const element = slide as HTMLElement;
+      const scale = i === index ? 1 : 0.8;
+      element.style.transform = `scale(${scale})`;
+      element.style.opacity = i === index ? "1" : "0.5";
+    });
+  };
+
+  useEffect(() => {
+    // Apply the scaling effect on the first render
+    handleSlideChange(0);
+  }, []);
+
   return (
     <div className="w-full min-h-screen bg-white">
       <div className="w-full mx-auto px-4">
         <div className="relative h-[80vh] flex items-center">
-          {/* Navigation Button */}
-          <Carousel ref={carouselRef} containerClassName="gap-3">
-            {[...caseStudies, caseStudies[0]].map(
-              (
-                study,
-                index // Added first slide at end for smoother loop
-              ) => (
-                <div
-                  key={`${study.id}-${index}`}
-                  className="relative " // Reduced slide width and added padding-left
-                >
-                  <div className="relative">
-                    <div className="relative aspect-square shadow-lg overflow-hidden  md:aspect-[400/400] md:w-[400px]">
-                      <Image
-                        src={study.image}
-                        alt={study.title}
-                        width={400}
-                        height={500}
-                        className="w-full h-full object-cover rounded-lg bg-gray-200"
-                      />
-                    </div>
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 rounded-b-lg">
-                      <h3 className="text-white uppercase font-medium text-xl sm:text-2xl mb-2">
-                        {study.title}
-                      </h3>
-                      <p className="text-white/90 text-sm sm:text-base">
-                        {study.description}
-                      </p>
-                    </div>
-                  </div>
+          <Carousel
+            ref={carouselRef}
+            containerClassName="gap-3"
+            slideClassName="relative flex-[0_0_80%] sm:flex-[0_0_50%] pl-4"
+            align="center"
+            loop
+            dragFree
+            containScroll="trimSnaps"
+            onSlideChange={handleSlideChange}
+          >
+            {caseStudies.map((study, index) => (
+              <div
+                key={`${study.id}-${index}`}
+                className="carousel-slide relative"
+              >
+                <div className="relative aspect-square shadow-lg overflow-hidden md:aspect-[400/400] md:w-[400px]">
+                  <Image
+                    src={study.image}
+                    alt={study.title}
+                    width={400}
+                    height={500}
+                    className="w-full h-full object-cover rounded-lg bg-gray-200"
+                  />
                 </div>
-              )
-            )}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6 rounded-b-lg">
+                  <h3 className="text-white uppercase font-medium text-lg sm:text-xl md:text-2xl lg:text-3xl mb-1 sm:mb-2">
+                    {study.title}
+                  </h3>
+                  <p className="text-white/90 text-xs sm:text-sm md:text-base lg:text-lg">
+                    {study.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </Carousel>
           <button
             onClick={() => carouselRef.current?.scrollNext()}
@@ -91,7 +109,7 @@ const CaseStudies = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 0.1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="w-full text-center text-[100px] md:text-[100px] lg:text-[220px] font-bold text-black opacity-10 leading-[0.9] mt-[50px]"
+              className="w-full text-center text-[50px] sm:text-[70px] md:text-[100px] lg:text-[150px] xl:text-[220px] font-bold text-black opacity-10 leading-[0.9] mt-[50px]"
             >
               CASE STUDY
             </motion.h2>

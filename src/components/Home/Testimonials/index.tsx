@@ -1,9 +1,10 @@
 "use client";
+import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
 import { Testimonial } from "@/types/Testimonials";
+import Carousel from "@/partials/Common/Carousel";
+import { CarouselRef } from "@/types/Partials";
 
 const testimonials: Testimonial[] = [
   {
@@ -79,9 +80,7 @@ const StarRating: React.FC<StarRatingProps> = ({ rating }) => {
 };
 
 const Testimonials = () => {
-  const [emblaRef] = useEmblaCarousel({ loop: true }, [
-    Autoplay({ delay: 4000, stopOnInteraction: false }),
-  ]);
+  const carouselRef = React.useRef<CarouselRef>(null);
 
   return (
     <section className="w-full bg-[#1E1E1E] text-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
@@ -108,46 +107,57 @@ const Testimonials = () => {
         </div>
 
         {/* Testimonials Carousel */}
-        <div className="overflow-hidden mb-12 sm:mb-16 md:mb-20" ref={emblaRef}>
-          <div className="flex">
+        <div className="mb-12 sm:mb-16 md:mb-20">
+          <Carousel
+            ref={carouselRef}
+            containerClassName="gap-3 mx-2"
+            slideClassName="flex-none w-full md:w-1/3 px-2"
+            align="center"
+            loop
+            dragFree
+            slidesToScroll={1}
+            autoplay={{
+              enabled: true,
+              delay: 3000,
+              playOnInit: true,
+            }}
+          >
             {testimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
-                className="flex-[0_0_100%] min-w-0 pl-4 md:flex-[0_0_33.33%]"
+                className="bg-[#F6F6F6] rounded-3xl p-6 sm:p-8 relative h-full"
               >
-                <div className="bg-[#F6F6F6] rounded-3xl p-6 sm:p-8 relative h-full mr-4">
-                  <div className="flex items-center gap-4 mb-4 sm:mb-6">
-                    <div className="relative w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden">
-                      <Image
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        fill
-                        className="object-cover"
-                        sizes="64px"
-                      />
-                    </div>
-                    <StarRating rating={testimonial.rating} />
+                <div className="flex items-center gap-4 mb-4 sm:mb-6">
+                  <div className="relative w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden">
+                    <Image
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      fill
+                      className="object-cover"
+                      sizes="64px"
+                    />
                   </div>
-                  <p className="text-sm sm:text-base mb-4 sm:mb-6 text-gray-800">
-                    {testimonial.content}
+                  <StarRating rating={testimonial.rating} />
+                </div>
+                <p className="text-sm sm:text-base mb-4 sm:mb-6 text-gray-800">
+                  {testimonial.content}
+                </p>
+                <div>
+                  <h4 className="font-semibold text-gray-900 text-base sm:text-lg">
+                    {testimonial.name}
+                  </h4>
+                  <p className="text-gray-600 text-xs sm:text-sm">
+                    {testimonial.role}
                   </p>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 text-base sm:text-lg">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-gray-600 text-xs sm:text-sm">
-                      {testimonial.role}
-                    </p>
-                    <div className="absolute bottom-4 sm:bottom-8 right-4 sm:right-8">
-                      <span className="text-[#4338ca] bg-[#4338ca]/10 px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
-                        Testimonial
-                      </span>
-                    </div>
+                  <div className="absolute bottom-4 sm:bottom-8 right-4 sm:right-8">
+                    <span className="text-[#4338ca] bg-[#4338ca]/10 px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
+                      Testimonial
+                    </span>
                   </div>
                 </div>
               </div>
             ))}
-          </div>
+          </Carousel>
         </div>
 
         {/* CTA Section */}
