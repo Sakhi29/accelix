@@ -11,21 +11,21 @@ const caseStudies: CaseStudy[] = [
   {
     id: 1,
     title: "E-Commerce Platform",
-    image: "/case1.png",
+    image: "/case2.png",
     description: "This is a description of the E-Commerce Platform",
     className: "md:col-span-3 md:row-span-1",
   },
   {
     id: 2,
     title: "Mobile App Design",
-    image: "/case2.jpg",
+    image: "/case1.png",
     description: "This is a description of the Mobile App Design",
     className: "md:col-span-2 md:row-span-1",
   },
   {
     id: 3,
     title: "Music Streaming App",
-    image: "/case3.jpg",
+    image: "/case5.jpg",
     description: "This is a description of the Music Streaming App",
     className: "md:col-span-2 md:row-span-1",
   },
@@ -58,9 +58,9 @@ const CaseStudies = () => {
   }, []);
 
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-white overflow-hidden">
       <div className="w-full mx-auto px-4">
-        <div className="relative pt-8 pb-[50px] md:pt-8 md:pb-[100px] lg:pb-[150px] flex items-center">
+        <div className="relative pt-8 pb-[50px] md:pt-20 md:pb-[100px] lg:pb-[150px] flex items-center">
           <Carousel
             ref={carouselRef}
             containerClassName="gap-3"
@@ -80,8 +80,8 @@ const CaseStudies = () => {
                   <Image
                     src={study.image}
                     alt={study.title}
-                    width={400}
-                    height={500}
+                    width={1280}
+                    height={800}
                     className="w-full h-full object-cover rounded-lg bg-gray-200"
                   />
                 </div>
@@ -109,7 +109,7 @@ const CaseStudies = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 0.1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="w-full text-center text-[65px] md:text-[100px] lg:text-[150px] xl:text-[210px] font-bold text-black opacity-10 leading-[0.9] mt-[50px]"
+              className="w-full text-center text-[40px] md:text-[100px] lg:text-[150px] xl:text-[210px] font-bold text-black opacity-10 leading-[0.9] mt-[50px]"
             >
               CASE STUDY
             </motion.h2>
