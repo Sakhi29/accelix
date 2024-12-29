@@ -54,47 +54,60 @@ export default function FAQ() {
   };
 
   return (
-    <div className="py-12 container mx-auto sm:py-16 ">
-      <div className="px-4 mx-auto grid lg:grid-cols-2 gap-12 items-start">
-        <div className="space-y-4">
-          <h2 className="text-4xl lg:text-5xl font-bold tracking-tight">
-            Frequently Asked Questions
-          </h2>
-        </div>
+    <div className="relative">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/video2.mp4" type="video/mp4" />
+      </video>
+      <div className="relative z-10">
+        <div className="py-12 container mx-auto sm:py-16 ">
+          <div className="px-4 mx-auto grid lg:grid-cols-2 gap-12 items-start">
+            <div className="space-y-4">
+              <h2 className="text-4xl lg:text-5xl font-bold tracking-tight">
+                Frequently Asked Questions
+              </h2>
+            </div>
 
-        <div className="space-y-4">
-          {faqData.map((faq, index) => (
-            <Accordion
-              key={index}
-              ref={(el) => {
-                accordionRefs.current[index] = el;
-              }}
-              title={
-                <div className="flex items-center px-2 justify-between py-4">
-                  <h3 className="text-lg text-black font-medium">
-                    {faq.question}
-                  </h3>
-                  <div
-                    className={`transition-transform duration-300 ${
-                      openIndex === index ? "rotate-180" : "rotate-0"
-                    }`}
-                  >
-                    {openIndex === index ? (
-                      <Minus className="h-5 min-w-5 text-black" />
-                    ) : (
-                      <Plus className="h-5 min-w-5 text-black" />
-                    )}
-                  </div>
-                </div>
-              }
-              defaultOpen={false}
-              containerClassName="rounded-[14px] bg-white"
-              onToggle={(isOpen) => handleToggle(index, isOpen)}
-              contentClassName="px-4 rounded-b-lg py-4 bg-gray-200 text-gray-600"
-            >
-              <p>{faq.answer}</p>
-            </Accordion>
-          ))}
+            <div className="space-y-4">
+              {faqData.map((faq, index) => (
+                <Accordion
+                  key={index}
+                  ref={(el) => {
+                    accordionRefs.current[index] = el;
+                  }}
+                  title={
+                    <div className="flex items-center px-2 justify-between py-4">
+                      <h3 className="text-lg text-black font-medium">
+                        {faq.question}
+                      </h3>
+                      <div
+                        className={`transition-transform duration-300 ${
+                          openIndex === index ? "rotate-180" : "rotate-0"
+                        }`}
+                      >
+                        {openIndex === index ? (
+                          <Minus className="h-5 min-w-5 text-black" />
+                        ) : (
+                          <Plus className="h-5 min-w-5 text-black" />
+                        )}
+                      </div>
+                    </div>
+                  }
+                  defaultOpen={false}
+                  containerClassName="rounded-[14px] bg-white"
+                  onToggle={(isOpen) => handleToggle(index, isOpen)}
+                  contentClassName="px-4 rounded-b-lg py-4 bg-gray-200 text-gray-600"
+                >
+                  <p>{faq.answer}</p>
+                </Accordion>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
