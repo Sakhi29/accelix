@@ -45,6 +45,12 @@ const Navbar = () => {
             Case Studies
           </Link>
           <Link
+            href="/faqs"
+            className="text-white hover:text-gray-300 transition-colors"
+          >
+            FAQs
+          </Link>
+          <Link
             href="/contact"
             className="bg-[#4318FF] text-white px-6 py-2 rounded-full hover:bg-[#3614CC] transition-colors"
           >
