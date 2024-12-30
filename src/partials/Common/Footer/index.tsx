@@ -15,12 +15,12 @@ const Footer = () => {
   return (
     <footer className="w-full bg-white text-black relative">
       {/* Contact Us Background Section */}
-      <div className="absolute top-0 left-0 w-full h-[250px] bg-[#1E1E1E] overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-[120px] md:h-[250px] bg-[#1E1E1E] overflow-hidden">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full text-center text-[50px] md:text-[100px] lg:text-[220px] font-bold text-[#4338ca] leading-[0.9] mt-[120px]"
+          className="w-full text-center text-[50px] md:text-[110px] lg:text-[220px] font-bold text-[#4338ca] leading-[0.9] md:mt-[120px]"
         >
           CONTACT US
         </motion.h2>
