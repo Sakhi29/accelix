@@ -61,7 +61,9 @@ const Work = () => {
           </h2>
           <p className="text-gray-400 text-sm sm:text-base md:text-md text-center md:text-right">
             "Details make perfection, and perfection is not a detail."
-            <span className="block text-[#4318FF] mt-1">- Leonardo da Vinci</span>
+            <span className="block text-[#4318FF] mt-1">
+              - Leonardo da Vinci
+            </span>
           </p>
         </div>
       </div>
@@ -72,7 +74,7 @@ const Work = () => {
           gap={6}
           responsive={{ sm: 1, md: 12, lg: 12 }}
           gridClassName="relative"
-          renderItem={(item, index) => (
+          renderItem={(item) => (
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-lg group">
               <Image
                 src={item.image}
