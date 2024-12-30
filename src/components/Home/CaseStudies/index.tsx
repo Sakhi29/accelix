@@ -11,21 +11,21 @@ const caseStudies: CaseStudy[] = [
   {
     id: 1,
     title: "E-Commerce Platform",
-    image: "/case1.png",
+    image: "/case2.png",
     description: "This is a description of the E-Commerce Platform",
     className: "md:col-span-3 md:row-span-1",
   },
   {
     id: 2,
     title: "Mobile App Design",
-    image: "/case2.jpg",
+    image: "/case1.png",
     description: "This is a description of the Mobile App Design",
     className: "md:col-span-2 md:row-span-1",
   },
   {
     id: 3,
     title: "Music Streaming App",
-    image: "/case3.jpg",
+    image: "/case5.jpg",
     description: "This is a description of the Music Streaming App",
     className: "md:col-span-2 md:row-span-1",
   },
@@ -58,13 +58,21 @@ const CaseStudies = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-white">
+    <div className="w-full bg-white overflow-hidden">
       <div className="w-full mx-auto px-4">
+<<<<<<< HEAD
         <div className="relative h-[80vh] flex items-center">
           <Carousel
             ref={carouselRef}
             containerClassName="gap-3"
             slideClassName="relative flex-[0_0_80%] sm:flex-[0_0_50%] pl-4"
+=======
+        <div className="relative pt-8 pb-[50px] md:pt-20 md:pb-[100px] lg:pb-[150px] flex items-center">
+          <Carousel
+            ref={carouselRef}
+            containerClassName="gap-3"
+            slideClassName="flex-none w-full md:w-1/2 px-2"
+>>>>>>> 295bfbc60c36d847968cb1861a336d8792316538
             align="center"
             loop
             dragFree
@@ -80,8 +88,13 @@ const CaseStudies = () => {
                   <Image
                     src={study.image}
                     alt={study.title}
+<<<<<<< HEAD
                     width={400}
                     height={500}
+=======
+                    width={1280}
+                    height={800}
+>>>>>>> 295bfbc60c36d847968cb1861a336d8792316538
                     className="w-full h-full object-cover rounded-lg bg-gray-200"
                   />
                 </div>
@@ -104,12 +117,16 @@ const CaseStudies = () => {
           </button>
 
           {/* Background Text (Hidden on Mobile) */}
-          <div className="hidden sm:block absolute -bottom-48 w-full h-[250px] md:overflow-hidden">
+          <div className="sm:block absolute -bottom-40 md:-bottom-32 lg:-bottom-24 xl:-bottom-16 w-full h-[250px] md:overflow-hidden">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 0.1, y: 0 }}
               transition={{ duration: 0.5 }}
+<<<<<<< HEAD
               className="w-full text-center text-[50px] sm:text-[70px] md:text-[100px] lg:text-[150px] xl:text-[220px] font-bold text-black opacity-10 leading-[0.9] mt-[50px]"
+=======
+              className="w-full text-center text-[40px] md:text-[100px] lg:text-[150px] xl:text-[210px] font-bold text-black opacity-10 leading-[0.9] mt-[50px]"
+>>>>>>> 295bfbc60c36d847968cb1861a336d8792316538
             >
               CASE STUDY
             </motion.h2>

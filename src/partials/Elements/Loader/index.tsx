@@ -63,12 +63,6 @@ const Loader: FC = () => {
         >
           ACCELIX
         </motion.h1>
-        <motion.div
-          initial={{ width: "0%" }}
-          animate={{ width: "100%" }}
-          transition={{ duration: 2.5, ease: "easeInOut" as const }}
-          className='h-1 bg-white/20 mt-12 w-96 max-w-full'
-        />
       </motion.div>
     </motion.div>
   );
