@@ -60,19 +60,11 @@ const CaseStudies = () => {
   return (
     <div className="w-full bg-white overflow-hidden">
       <div className="w-full mx-auto px-4">
-<<<<<<< HEAD
-        <div className="relative h-[80vh] flex items-center">
-          <Carousel
-            ref={carouselRef}
-            containerClassName="gap-3"
-            slideClassName="relative flex-[0_0_80%] sm:flex-[0_0_50%] pl-4"
-=======
         <div className="relative pt-8 pb-[50px] md:pt-20 md:pb-[100px] lg:pb-[150px] flex items-center">
           <Carousel
             ref={carouselRef}
             containerClassName="gap-3"
             slideClassName="flex-none w-full md:w-1/2 px-2"
->>>>>>> 295bfbc60c36d847968cb1861a336d8792316538
             align="center"
             loop
             dragFree
@@ -88,13 +80,8 @@ const CaseStudies = () => {
                   <Image
                     src={study.image}
                     alt={study.title}
-<<<<<<< HEAD
-                    width={400}
-                    height={500}
-=======
                     width={1280}
                     height={800}
->>>>>>> 295bfbc60c36d847968cb1861a336d8792316538
                     className="w-full h-full object-cover rounded-lg bg-gray-200"
                   />
                 </div>
@@ -122,11 +109,7 @@ const CaseStudies = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 0.1, y: 0 }}
               transition={{ duration: 0.5 }}
-<<<<<<< HEAD
-              className="w-full text-center text-[50px] sm:text-[70px] md:text-[100px] lg:text-[150px] xl:text-[220px] font-bold text-black opacity-10 leading-[0.9] mt-[50px]"
-=======
               className="w-full text-center text-[40px] md:text-[100px] lg:text-[150px] xl:text-[210px] font-bold text-black opacity-10 leading-[0.9] mt-[50px]"
->>>>>>> 295bfbc60c36d847968cb1861a336d8792316538
             >
               CASE STUDY
             </motion.h2>
