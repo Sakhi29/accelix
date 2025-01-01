@@ -3,7 +3,6 @@ import Hero from "../components/Home/Hero";
 import Services from "../components/Home/Services";
 import CaseStudies from "../components/Home/CaseStudies";
 import Testimonials from "../components/Home/Testimonials";
-import Footer from "../partials/Common/Footer";
 import FAQ from "@/components/Home/Faq";
 import Work from "@/components/Home/Work";
 
@@ -12,12 +11,11 @@ export default function Home() {
     <main className="">
       <Hero />
       {/* <Features /> */}
-      <Work/>
+      <Work />
       <Services />
       <CaseStudies />
       <Testimonials />
       <FAQ />
-      <Footer />
     </main>
   );
 }

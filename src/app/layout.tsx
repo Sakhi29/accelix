@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "../partials/Common/Navbar";
 import Loader from "../partials/Elements/Loader";
+import Footer from "@/partials/Common/Footer";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -20,11 +21,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body className={montserrat.className}>
-        <div className='relative min-h-screen'>
+        <div className="relative min-h-screen">
           <Navbar />
           <main>{children}</main>
+          <Footer />
         </div>
         <Loader />
       </body>
