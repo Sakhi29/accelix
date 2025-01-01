@@ -4,6 +4,8 @@ import Image from "next/image";
 import Grid from "@/partials/Common/Grid";
 import { WorkItem } from "@/types/Work";
 import { Montserrat } from "next/font/google";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -96,6 +98,15 @@ const Work = () => {
             </div>
           )}
         />
+        <div className="flex justify-center mt-8 hover:scale-105 transition-all duration-300">
+          <Link 
+            href="/our-work"
+            className="inline-flex items-center text-[#4318FF] hover:text-blue-700 font-medium transition-colors duration-200"
+          >
+            See All Work
+            <ChevronRight size={20}/>
+          </Link>
+        </div>
       </div>
     </section>
   );
