@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
@@ -12,14 +12,34 @@ const montserrat = Montserrat({
 });
 
 const Hero = () => {
-  return (
-    <section className="w-full min-h-screen bg-[#1E1E1E] text-white relative overflow-hidden pt-28 md:pt-32 pb-16 px-4">
-      {/* Background gradient */}
-      <div className="absolute -top-40 -right-40 w-[250px] h-[250px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] bg-[#4338ca] rounded-full opacity-20 blur-[60px] sm:blur-[80px] lg:blur-[100px]" />
+  const [gradientPosition, setGradientPosition] = useState({ x: 50, y: 50 });
 
+  const handleMouseMove = (e:any) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+
+    const x = (clientX / innerWidth) * 100;
+    const y = (clientY / innerHeight) * 100;
+
+    setGradientPosition({ x, y });
+  };
+
+  return (
+    <section
+      className="w-full min-h-screen bg-[#1E1E1E] text-white relative overflow-hidden pt-28 md:pt-32 pb-16 px-4"
+      onMouseMove={handleMouseMove}
+    >
+      {/* Dynamic Background */}
+      <div
+        className="hero-dynamic-bg"
+        style={{
+          background: `radial-gradient(circle at ${gradientPosition.x}% ${gradientPosition.y}%, #4338ca, #1E1E1E)`,
+        }}
+      />
+
+      {/* Rest of the content */}
       <div className="container mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
@@ -55,7 +75,6 @@ const Hero = () => {
               </motion.button>
             </div>
 
-            {/* Quote Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -71,7 +90,6 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Content - Hero Image/Animation */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -87,7 +105,6 @@ const Hero = () => {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
             />
 
-            {/* Stats Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -119,4 +136,5 @@ const Hero = () => {
     </section>
   );
 };
+
 export default Hero;

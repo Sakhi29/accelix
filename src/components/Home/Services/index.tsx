@@ -2,6 +2,7 @@
 
 import { Montserrat } from "next/font/google";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -13,17 +14,17 @@ const services = [
   {
     title: "Website Development",
     description: "Creating responsive, modern websites that drive results",
-    link: "/services/web",
+    link: "/services/web-development",
   },
   {
     title: "Mobile Development",
     description: "Native and cross-platform mobile solutions",
-    link: "/services/mobile",
+    link: "/services/mobile-development",
   },
   {
     title: "Cloud Services",
     description: "Scalable cloud solutions for your business",
-    link: "/services/cloud",
+    link: "/services/cloud-services",
   },
   {
     title: "UI/UX Design",
@@ -58,42 +59,44 @@ const Services = () => {
         {/* Services Section */}
         <div className="space-y-10">
           {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group flex items-center justify-between border-b border-gray-800 pb-8 space-x-4"
-            >
-              <div className="flex-1">
-                <h3
-                  className={`${montserrat.className} text-2xl sm:text-3xl lg:text-4xl text-gray-200 group-hover:text-white transition-colors duration-300`}
-                >
-                  {service.title}
-                </h3>
-                <p className="text-gray-400 text-sm sm:text-base lg:text-lg mt-2">
-                  {service.description}
-                </p>
-              </div>
+            <Link href={service.link} key={index}>
               <motion.div
-                whileHover={{ scale: 1.1 }}
-                className="w-12 h-12 rounded-full border border-gray-600 flex items-center justify-center group-hover:border-[#4318FF] transition-colors duration-300"
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="group flex items-center justify-between border-b border-gray-800 pb-8 space-x-4"
               >
-                <svg
-                  className="w-6 h-6 text-gray-400 group-hover:text-[#4318FF] transition-colors duration-300 transform group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                <div className="flex-1">
+                  <h3
+                    className={`${montserrat.className} text-2xl sm:text-3xl lg:text-4xl text-gray-200 group-hover:text-white transition-colors duration-300`}
+                  >
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-400 text-sm sm:text-base lg:text-lg mt-2">
+                    {service.description}
+                  </p>
+                </div>
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  className="w-12 h-12 rounded-full border border-gray-600 flex items-center justify-center group-hover:border-[#4318FF] transition-colors duration-300"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 8l4 4m0 0l-4 4m4-4H3"
-                  />
-                </svg>
+                  <svg
+                    className="w-6 h-6 text-gray-400 group-hover:text-[#4318FF] transition-colors duration-300 transform group-hover:translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </motion.div>
               </motion.div>
-            </motion.div>
+            </Link>
           ))}
         </div>
       </div>

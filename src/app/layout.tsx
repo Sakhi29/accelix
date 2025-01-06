@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>
+      <body className={`${montserrat.className} overflow-hidden`}>
         <div className="relative min-h-screen">
           <Navbar />
           <main>{children}</main>

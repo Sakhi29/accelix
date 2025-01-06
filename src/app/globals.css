@@ -83,6 +83,18 @@ body {
   color: white;
   background: #1e1e1e;
   font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 @layer base {
@@ -93,3 +105,13 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.hero-dynamic-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at 50% 50%, #4338ca, #1E1E1E);
+  transition: background 0.3s ease;
+  pointer-events: none;
+}
+

@@ -8,7 +8,7 @@ import Work from "@/components/Home/Work";
 
 export default function Home() {
   return (
-    <main className="">
+    <main className="overflow-y-hidden">
       <Hero />
       {/* <Features /> */}
       <Work />
